@@ -1,0 +1,55 @@
+Stan Maria-Emma grupa 321CD
+
+
+    TEMA 4 Client WEB. Comunicatie cu REST API.
+    
+1. Consideratii initiale
+    Realizarea aplicatiei s-a bazat pe cerintele temei.
+    Am utilizat ca baza de plecare structura de cod prezentata in laboratorul 9 (HTTP).
+    Au fost implementate toate cerintele.
+    In cele ce urmeaza voi prezenta
+	- utilizarea bibliotecii PARSON in cadrul proiectului
+        - organizarea aplicatiei
+
+2. Biblioteca de functii PARSON
+S-a evitat utilizarea campurilor hardcodate.
+A fost utilizata pentru 
+	- crearea de obiecte JSON ulterior seralizate si trimis prin POST catre server
+		- pe baza informatiilor user+parola in cadrul operatiilor register si login
+		- pe baza informatiilor culese despre o carte ce urmeaza a fi adaugata in biblioteca 
+			utilizand functia add_book
+	- interpretarea informatiilor primite pe baza comenzii add_books - variabila JSON primita a 
+		fost transformata intr-un array de obiecte JSON (cate unul pentru fiecare carte)
+		iar apoi fiecare obiect JSON (aferent unei carti) a fost transformat in obiecte JSON
+		fiecare aferent unei perechi key-value ce descrie o proprietate a unei carti
+	- interpretarea informatiilor primite pe baza comenzii add_book - variabila JSON primita a 
+		fost transformata in mai multe obiecte JSON 
+		fiecare aferent unei perechi key-value ce descrie o proprietate a unei carti
+	- interpretarea mesajelor de eroare prin incarcarea cookie-urilor in obiecte JSON si ulterior 
+		afisarea acestora 
+	- citirea tokenului de autentificare primit la executia enter_library
+	
+3. Organizarea aplicatiei
+	S-a pornit de la operatiile pe care clientul web trebuie sa le execute.
+	In main au fost pastrate declaratii de variabile si structuri de date precum si logica de 
+interpretare a comenzilor primite de la tastatura.
+	Tot in main gasim si o parte din verificarile facute in scopul asigurarii bunei functionari a 
+aplicatiei.
+	In fisierul requests.c gasim procedurile care compun mesajele ce urmeaza a fi transmise catre 
+server prin POST, GET sau DELETE.
+	Pentru fiecare operatie (mai putin exit) a fost creata o procedura distincta. 
+	Exista asemanari intre aceste proceduri, anume
+		in fiecare procedura se creaza un socket care este inchis la final.
+		se compune un mesaj care va fi trimis la server
+		se interpreteaza raspunsul primit de la server si in caz ca se primeste un mesaj de eroare 
+			acesta este afisat
+	Restul codului aferent fiecarei proceduri ajuta la indeplinirea functiei pentru care a fost 
+creata aceasta. Au fost folosite denumiri sugestive de proceduri si variabile.
+	
+	
+Bibliografie	
+https://pcom.pages.upb.ro/labs/lab9/http.html
+https://pcom.pages.upb.ro/labs/lab9/responses.html
+https://restfulapi.net/http-methods/
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+	
